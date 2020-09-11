@@ -2,6 +2,7 @@ var User = require('../models/User')
 var Contract = require('../models/Contract')
 var MaintenanceFee = require('../models/MaintenanceFee')
 var Trust = require('../models/Trust')
+const { json } = require('body-parser')
 var router = require('express').Router()
 
 router.route('/')
@@ -9,9 +10,21 @@ router.route('/')
         res.send("Success")
     })
 
+// 계약서 출력
 router.route('/api/contract')
-    .get((req, res, next) => {
-        res.sendStatus(200)
+    .post((req, res, next) => {
+
+        const contractData = req.body
+
+        Contract.findOne((contractData), (err, result)=>{
+            if(err){
+                console.log(err)
+                res.status(500).send("Error sigup new user please try again")
+            }else{
+            console.log(result)
+            res.sendStatus(200)
+            }
+        })
     })
 
 // 계약서 등록
@@ -40,14 +53,38 @@ router.route('/api/contractlist')
 
 // 관리비내역출력
 router.route('/api/maintenancefee')
-    .get((req, res, next) => {
+    .post((req, res, next) => {
+
+        const mainFeeData = req.body
+
+        MaintenanceFee.findOne((mainFeeData), (err, result)=>{
+            if(err){
+                console.log(err)
+                res.status(500).send("Error sigup new user please try again")
+            } else {
+                res.sendStatus(200)
+                console.log(result)
+            }
+        })
 
     })
 
-// 관리비내역리스트 빈라우터
+// 관리비내역리스트 빈라우터 => 저장 테스트를 위해 제작
 router.route('/api/maintenancefeelist')
-    .get((req, res, next) => {
+    .post((req, res, next) => {
 
+        const mainFeeData = req.body
+
+        const mainFee = new MaintenanceFee(mainFeeData)
+        
+        mainFee.save((err)=>{
+            if(err){
+                console.log(err)
+                res.status(500).send("Error sigup new user please try again")
+            } else {
+                res.status(200).send("Fail")
+            }
+        })
     })
 
 // 서비스 소개 빈라우터
@@ -58,9 +95,10 @@ router.route('/api/serviceintro')
 
 router.route('/api/signup')
     .post((req, res, next)=>{
-        const userdata = req.body
 
-        const user = new User(userdata)
+        const userData = req.body
+
+        const user = new User(userData)
 
         user.save((err)=>{
             if(err){
@@ -74,6 +112,7 @@ router.route('/api/signup')
 
 router.route('/api/signin')
     .post((req, res, next)=>{
+
         const { username, password } = req.body
 
         User.findOne({username}, (err, result) =>{
@@ -92,6 +131,7 @@ router.route('/api/signin')
                         res.status(401).json({error : 'Incorrect passowrd'})
                     } else {
                         res.status(200).send("HI")
+                        console.log(result)
                     }
                 })
             }
@@ -108,7 +148,12 @@ router.route('/api/signout')
 router.route('/api/signmodified')
     .get((req, res, next)=>{
 
- 
+        const chUserData = req.body
+
+
+
+        res.sendStatus(200)
+
     })
 
 // 계약신탁출력
@@ -129,5 +174,12 @@ router.route('/api/trustsub')
     .get((req, res, next)=>{
 
     })
+
+// 회원탈퇴, 빈라우터
+router.route('/api/trustsub')
+    .get((req, res, next)=>{
+
+    })
+
 
 module.exports = router;

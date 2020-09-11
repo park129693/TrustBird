@@ -44,7 +44,7 @@ var maintenanceFeeSchema = new mongoose.Schema({
 
     // giro : {
     //     type : Image,
-    //     required : false
+    //     // required : false
     // }
 
 })
