@@ -3,6 +3,8 @@ var Contract = require('../models/Contract')
 var MaintenanceFee = require('../models/MaintenanceFee')
 var Trust = require('../models/Trust')
 const { json } = require('body-parser')
+const { db } = require('../models/User')
+const cookieParser = require('cookie-parser')
 var router = require('express').Router()
 
 router.route('/')
@@ -145,27 +147,50 @@ router.route('/api/signout')
     })
 
 // 회원정보수정
-router.route('/api/signmodified')
-    .get((req, res, next)=>{
+router.route('/api/signmodified/:username')
+    .put((req, res, next)=>{
 
-        const chUserData = req.body
-
-
-
-        res.sendStatus(200)
+        User.update({username:req.params.username}, {$set: req.body},(err, output)=>{
+            if(err) res.status(500).json({error: 'database fail'})
+            console.log(output)
+            if(!output.n) return res.status(404).json({error: 'Not Founnd'})
+            res.json({error: 'Database Update'})
+        })
 
     })
 
 // 계약신탁출력
 router.route('/api/trust')
-    .get((req, res, next)=>{
+    .post((req, res, next)=>{
 
- 
+        const trustData = req.body
+
+        Trust.findOne((trustData),(err, result)=>{
+            if(err){
+                console.log(err)
+                res.status(500).send("Error sigup new user please try again")
+            } else {
+                res.sendStatus(200)
+                console.log(result)
+            }
+        })
     })
 
 // 계약신탁요청
 router.route('/api/trustsub')
-    .get((req, res, next)=>{
+    .post((req, res, next)=>{
+        const trustData = req.body
+
+        const trust = new Trust(trustData)
+
+        trust.save((err)=>{
+            if(err){
+                console.log(err)
+                res.status(500).send("Error sigup new user please try again")
+            } else {
+                res.status(200).send("Sign Up is Success")
+            }
+        })
 
     })
 
