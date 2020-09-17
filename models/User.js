@@ -8,14 +8,19 @@ var UserSchema = new mongoose.Schema({
         required : true 
     },
 
+    email : {
+        type : String,
+        required : true
+    },
+
     password : {
         type : String,
         required : true
     },
 
     dateOfBirth : {
-        type : Date
-        // required : true
+        type : Date,
+        required : true,
     },
 
     gender : {
@@ -56,6 +61,5 @@ UserSchema.methods.isCorrectPassword = function(password, callback) {
         } 
     })
 }
-
 
 module.exports = mongoose.model('User', UserSchema)

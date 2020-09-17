@@ -42,10 +42,11 @@ var maintenanceFeeSchema = new mongoose.Schema({
         required : true
     },
 
-    // giro : {
-    //     type : Image,
-    //     // required : false
-    // }
+    giro : {
+        type : Buffer, 
+        contentType : String,
+        required : false
+    }
 
 })
 

@@ -2,6 +2,17 @@ var mongoose = require('mongoose')
 
 //Contract Data
 var contractSchema = new mongoose.Schema({
+
+    newToken : {
+        type : String,
+        required : true
+    },
+
+    preToken : {
+        type : String,
+        required : true
+    },
+
     location : {
         type : String,
         required : true

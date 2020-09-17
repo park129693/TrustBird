@@ -2,6 +2,17 @@ var mongoose = require('mongoose')
 
 //Trust Data
 var trustSchema = new mongoose.Schema({
+
+    newToken : {
+        type : String,
+        required : true
+    },
+
+    preToken : {
+        type : String,
+        required : true
+    },
+
     type : {
         type : String,
         required : true
@@ -42,10 +53,11 @@ var trustSchema = new mongoose.Schema({
         required : false
     },
 
-    // Attachments : {
-    //     type : Image,
-    //     required : false
-    // }
+    Attachments : {
+            type : Buffer, 
+            contentType : String,
+            required : false
+    }
 
 })
 
