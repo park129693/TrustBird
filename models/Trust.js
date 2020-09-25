@@ -2,7 +2,7 @@ var mongoose = require('mongoose')
 
 //Trust Data
 var trustSchema = new mongoose.Schema({
-
+    
     newToken : {
         type : String,
         required : true
@@ -54,11 +54,24 @@ var trustSchema = new mongoose.Schema({
     },
 
     Attachments : {
-            type : Buffer, 
-            contentType : String,
-            required : false
-    }
+            originalName : {
+                type : String,
+                require : false
+            },
 
+            saveFileName : {
+                type : String,
+                require : false
+            },
+            fileSize : {
+                type : String,
+                required : false
+            },
+            fileBinary: {
+                type : Buffer,
+                required : false
+            }
+    }
 })
 
 module.exports = mongoose.model('Trust', trustSchema)

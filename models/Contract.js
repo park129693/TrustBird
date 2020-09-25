@@ -2,7 +2,6 @@ var mongoose = require('mongoose')
 
 //Contract Data
 var contractSchema = new mongoose.Schema({
-
     newToken : {
         type : String,
         required : true

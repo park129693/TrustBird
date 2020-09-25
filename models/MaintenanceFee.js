@@ -43,8 +43,7 @@ var maintenanceFeeSchema = new mongoose.Schema({
     },
 
     giro : {
-        type : Buffer, 
-        contentType : String,
+        type : String,
         required : false
     }
 

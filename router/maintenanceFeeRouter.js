@@ -5,7 +5,7 @@ var router = require('express').Router()
 
 // 관리비내역출력
 router.route('/maintenancefee')
-    .post((req, res, next) => {
+    .get((req, res, next) => {
 
         const mainFeeData = req.body
 

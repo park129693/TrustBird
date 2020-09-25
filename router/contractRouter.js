@@ -27,7 +27,7 @@ router.route('/contractenroll')
 
         const contract = new Contract(contractData)
 
-        contract.save((err)=>{
+        contract.save((err)=>{      
             if(err){
                 console.log(err)
                 res.status(500).send("Internal error please try again")
