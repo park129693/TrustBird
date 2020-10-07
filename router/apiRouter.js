@@ -1,6 +1,7 @@
 var User = require('../models/User')
 const crypto = require('crypto')
 var router = require('express').Router()
+var Web3 = require('web3');
 
 //Router 분활
 const trustRouter = require('./trustRouter')
